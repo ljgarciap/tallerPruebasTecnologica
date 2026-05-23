@@ -1,0 +1,107 @@
+{
+  "info": {
+    "_postman_id": "1aafbae5-c22b-40d7-ab01-36b44d8c63d5",
+    "name": "TECNOLOGICA TALLER_RAA1_U2",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "17709385"
+  },
+  "item": [
+    {
+      "name": "CREAR",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "// Validación de Código de Estado",
+              "pm.test(\"HTTP Status 201 - Usuario Creado con éxito\", function () {",
+              "    pm.response.to.have.status(201);",
+              "});",
+              "",
+              "// Validación de la Estructura de Respuesta del Controlador",
+              "pm.test(\"Validar estructura JSON de éxito\", function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.mensaje).to.eql(\"Usuario registrado con éxito\");",
+              "    pm.expect(jsonData.usuario).to.eql(\"luis_garcia\");",
+              "    pm.expect(jsonData.status).to.eql(\"ACTIVO\");",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"username\": \"luis_garcia\",\n    \"password\": \"claveSegura123\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/usuarios",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "usuarios"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "CONSULTAR",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "// Validación de Código de Estado",
+              "pm.test(\"HTTP Status 200 - Usuario Encontrado\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "// Validación del contenido devuelto por la API",
+              "pm.test(\"El usuario en base de datos coincide con la búsqueda\", function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.usuarioEncontrado).to.eql(\"luis_garcia\");",
+              "    pm.expect(jsonData.resultado).to.eql(\"Existe en el sistema\");",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/usuarios/luis_garcia",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "usuarios",
+            "luis_garcia"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

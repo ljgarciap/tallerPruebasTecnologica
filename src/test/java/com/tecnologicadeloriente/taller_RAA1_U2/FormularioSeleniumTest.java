@@ -7,6 +7,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -21,8 +22,18 @@ class FormularioSeleniumTest {
 
     @BeforeEach
     void setUp() {
-        // Inicializa el navegador (Asegúrate de tener Chrome instalado)
-        driver = new ChromeDriver();
+        ChromeOptions options = new ChromeOptions();
+
+        // Verifica si pasamos el parámetro headless desde Jenkins
+        String headless = System.getProperty("chrome.headless", "false");
+        if (headless.equals("true")) {
+            options.addArguments("--headless=new"); // Modo invisible para el servidor
+            options.addArguments("--disable-gpu");
+            options.addArguments("--no-sandbox");
+        }
+
+        // Inicializa el navegador con las opciones configuradas
+        driver = new ChromeDriver(options);
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         driver.manage().window().maximize();
     }
