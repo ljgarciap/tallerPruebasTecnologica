@@ -2,8 +2,8 @@ pipeline {
     agent any
 
     environment {
-        // Añadimos las rutas de npm globales para que Jenkins encuentre a Newman en la Mac
-        PATH = "/opt/homebrew/share/npm/bin:/opt/homebrew/lib/node_modules/newman/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:${env.PATH}"
+        // Reemplazamos por tu ruta exacta de NVM descubierta por consola
+        PATH = "/Users/lgarcia/.nvm/versions/node/v23.10.0/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:${env.PATH}"
     }
 
     stages {
